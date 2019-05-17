@@ -1,0 +1,47 @@
+
+/* 悬浮按钮 */
+.floatBtn-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.floatBtn-box {
+  position: fixed;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: 20rpx;
+  z-index: 9999;
+  background: #fff;
+  border-radius: 12rpx;
+  transform: translateY(150%);
+  transition: all .5s;
+}
+.floatBtn-box.active{
+  transform: none;
+}
+
+.floatBtn-item {
+  position: relative;
+  padding: 16rpx 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.cancel{
+  line-height: 88rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #eee;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.current{
+  color: var(--color-theme);
+}

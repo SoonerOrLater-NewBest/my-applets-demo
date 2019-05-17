@@ -1,0 +1,76 @@
+<view class="swiper-container">
+  <swiper class="swiper_box" autoplay="{{autoplay}}" circular bindchange='swiperChange' interval="{{interval}}" duration="{{duration}}" current='{{swiperCurrent}}'>
+    <block wx:for="{{piclist}}" wx:key="{{index}}">
+      <swiper-item wx:if="{{data.video_url&&data.video_url!==''&&data.vr_url&&data.vr_url!==''}}">
+        <view wx:if="{{index===0}}" class="video-panel" bindtap="play">
+          <image class="play" src="/ws_house/resource/images/icon-play.png" />
+          <image src="{{item}}" class="slide-image" />
+        </view>
+        <view wx:elif="{{index===1}}" class="video-panel" bindtap="see_vr">
+          <image class="play" src="/ws_house/resource/images/vr.png" />
+          <image src="{{item}}" class="slide-image" />
+        </view>
+        <view wx:else class="video-panel" data-src="{{item}}" bindtap="tapPreviewImage">
+          <image src="{{item}}" class="slide-image" />
+        </view>
+      </swiper-item>
+      <swiper-item wx:if="{{data.video_url&&data.video_url!==''&&(!data.vr_url||data.vr_url=='')}}">
+        <view wx:if="{{index===0}}" class="video-panel" bindtap="play">
+          <image class="play" src="/ws_house/resource/images/icon-play.png" />
+          <image src="{{item}}" class="slide-image" />
+        </view>
+        <view wx:else class="video-panel" data-src="{{item}}" bindtap="tapPreviewImage">
+          <image src="{{item}}" class="slide-image" />
+        </view>
+      </swiper-item>
+      <swiper-item wx:if="{{data.vr_url&&data.vr_url!==''&&(!data.video_url||data.video_url=='')}}">
+        <view wx:if="{{index===0}}" class="video-panel" bindtap="see_vr">
+          <image class="play" src="/ws_house/resource/images/vr.png" />
+          <image src="{{item}}" class="slide-image" />
+        </view>
+        <view wx:else class="video-panel" data-src="{{item}}" bindtap="tapPreviewImage">
+          <image src="{{item}}" class="slide-image" />
+        </view>
+      </swiper-item>
+      <swiper-item wx:if="{{(!data.video_url||data.video_url=='')&&(!data.vr_url||data.vr_url=='')}}">
+        <view class="video-panel" data-src="{{item}}" bindtap="tapPreviewImage">
+          <image src="{{item}}" class="slide-image" />
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view hidden='{{hide}}' style='width:750rpx;height:500rpx;position:absolute;top:0;left:0;z-index:10;'>
+    <video src='{{data.video_url}}' id="video" show-fullscreen-btn="{{true}}" style="width:100%;height:100%;">
+      <cover-view wx:if="{{data.video_url&&data.video_url!=''}}" style='color:#fff;padding:20rpx;' bindtap='close'>关闭</cover-view>
+    </video>
+  </view>
+  <view class="dots">
+    <block wx:for="{{piclist}}" wx:key="{{index}}">
+      <block wx:if="{{data.video_url&&data.video_url!==''&&data.vr_url&&data.vr_url!==''}}">
+        <view wx:if="{{index===0}}" class="dot{{index == swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">视频
+        </view>
+        <view wx:if="{{index===1}}" class="dot{{index == swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">全景
+        </view>
+        <view wx:if="{{index===2}}" class="dot{{index <= swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">图片
+        </view>
+      </block>
+      <block wx:if="{{data.video_url&&data.video_url!==''&&(!data.vr_url||data.vr_url=='')}}">
+        <view wx:if="{{index===0}}" class="dot{{index == swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">视频
+        </view>
+        <view wx:if="{{index===1}}" class="dot{{index <= swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">图片
+        </view>
+      </block>
+      <block wx:if="{{data.vr_url&&data.vr_url!==''&&(!data.video_url||data.video_url=='')}}">
+        <view wx:if="{{index===0}}" class="dot{{index == swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">全景
+        </view>
+        <view wx:if="{{index===1}}" class="dot{{index <= swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">图片
+        </view>
+      </block>
+      <block wx:if="{{(!data.video_url||data.video_url=='')&&(!data.vr_url||data.vr_url=='')}}">
+        <view wx:if="{{index===0}}" class="dot{{index <= swiperIndex ? ' active' : ''}}" data-idx="{{index}}" bindtap="swiperNav">图片
+        </view>
+      </block>
+
+    </block>
+  </view>
+</view>

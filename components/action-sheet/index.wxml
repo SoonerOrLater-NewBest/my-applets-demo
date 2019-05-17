@@ -1,0 +1,12 @@
+<view class='floatBtn-container' hidden="{{showMenu?false:true}}" catchtap='onCreateTap' catchtouchmove='preventDefault'>
+</view>
+<view class='floatBtn-box {{showMenu?"active":""}}' catchtouchmove='preventDefault'>
+  <view class="cancel">
+    选择就诊人
+  </view>
+  <view class='floatBtn-item {{id==item.id?"current":""}}' catchtap='onItemTap' data-name='{{item.patient_name}}' data-id='{{item.id}}' wx:for='{{menu_list}}' wx:key='{{index}}'>
+    <view>{{item.patient_name}}</view>
+    <view>{{'无卡'}}</view>
+  </view>
+
+</view>

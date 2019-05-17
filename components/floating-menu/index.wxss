@@ -1,0 +1,73 @@
+button {
+  border-radius:0;
+  background: none;
+  font-size: 28rpx;
+  line-height: 1;
+}
+button::after {
+  border: none;
+}
+/* 悬浮按钮 */
+.floatBtn-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+.floatBtn {
+  position: fixed;
+  right: 30rpx;
+  bottom: 150rpx;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 30rpx;
+  padding: 20rpx;
+  z-index: 999;
+  border-radius: 60rpx;
+  background: #f3f8fa;
+  color: #212121;
+  font-size: 24rpx;
+  white-space: normal;
+  text-align: center;
+  border: 2rpx solid #eee;
+}
+
+.floatBtn-box {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: #fff;
+}
+
+.floatBtn-box .warp {
+  padding: 40rpx 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.floatBtn-item {
+  position: relative;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.floatBtn__image {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ddd;
+  padding: 12rpx;
+  margin-bottom: 16rpx;
+}
+.cancel{
+  line-height: 88rpx;
+  text-align: center;
+  border-top: 1rpx solid #eee;
+  font-size: 32rpx;
+}

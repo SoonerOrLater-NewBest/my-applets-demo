@@ -1,0 +1,1 @@
+<navigationBar text="自定义导航" back="{{true}}" home="true"></navigationBar>

@@ -1,0 +1,23 @@
+<cover-view class='floatBtn-container' hidden="{{showMenu?false:true}}" catchtap='onCreateTap' catchtouchmove='preventDefault'>
+
+</cover-view>
+<cover-view catchtap='onCreateTap' hover-class="wsui-hover__round" class="floatBtn">
+  快捷导航
+</cover-view>
+<cover-view hidden="{{showMenu?false:true}}" class='floatBtn-box' catchtouchmove='preventDefault'>
+  <cover-view class='warp'>
+    <cover-view class='floatBtn-item' catchtap='onItemTap' data-url='{{item.href}}' wx:for='{{menu_list}}' wx:key='{{index}}'>
+      <button wx:if='{{item.id===2}}' open-type="contact">
+        <cover-image class='floatBtn__image' src='{{item.src}}'></cover-image>
+        <cover-view>{{item.name}}</cover-view>
+      </button>
+      <block wx:else>
+        <cover-image class='floatBtn__image' src='{{item.src}}'></cover-image>
+        <cover-view>{{item.name}}</cover-view>
+      </block>
+    </cover-view>
+  </cover-view>
+  <cover-view catchtap='onCreateTap' class="cancel">
+    取消
+  </cover-view>
+</cover-view>
