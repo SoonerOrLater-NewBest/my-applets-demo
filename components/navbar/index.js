@@ -1,37 +1,104 @@
-const app = getApp()
 
 Component({
-
   properties: {
-    text: {
+    background: {
       type: String,
-      value: 'Wechat'
+      value: 'rgba(255, 255, 255, 1)'
     },
-    back: {
-      type: Boolean,
-      value: false
+    color: {
+      type: String,
+      value: 'rgba(0, 0, 0, 1)'
     },
-    home: {
-      type: Boolean,
-      value: false
+    titleText: {
+      type: String,
+      value: '导航栏'
+    },
+    titleImg: {
+      type: String,
+      value: ''
+    },
+    backIcon: {
+      type: String,
+      value: ''
+    },
+    homeIcon: {
+      type: String,
+      value: ''
+    },
+    fontSize: {
+      type: Number,
+      value: 16
+    },
+    iconHeight: {
+      type: Number,
+      value: 19
+    },
+    iconWidth: {
+      type: Number,
+      value: 58
     }
   },
-  data: {
-    statusBarHeight: app.globalData.statusBarHeight + 'px',
-    navigationBarHeight: (app.globalData.statusBarHeight + 44) + 'px'
+  attached: function () {
+    var that = this;
+    that.setNavSize();
+    that.setStyle();
   },
-
+  data: {},
   methods: {
-    backHome: function () {
+    // 通过获取系统信息计算导航栏高度        
+    setNavSize: function () {
+      var that = this,
+        sysinfo = wx.getSystemInfoSync(),
+        statusHeight = sysinfo.statusBarHeight,
+        isiOS = sysinfo.system.indexOf('iOS') > -1,
+        navHeight;
+      if (!isiOS) {
+        navHeight = 48;
+      } else {
+        navHeight = 44;
+      }
+      that.setData({
+        status: statusHeight,
+        navHeight: navHeight
+      })
+    },
+    setStyle: function () {
+      var that = this,
+        containerStyle, textStyle, iconStyle;
+      containerStyle = [
+        'background:' + that.data.background
+      ].join(';');
+      textStyle = [
+        'color:' + that.data.color,
+        'font-size:' + that.data.fontSize + 'px'
+      ].join(';');
+      iconStyle = [
+        'width: ' + that.data.iconWidth + 'px',
+        'height: ' + that.data.iconHeight + 'px'
+      ].join(';');
+      that.setData({
+        containerStyle: containerStyle,
+        textStyle: textStyle,
+        iconStyle: iconStyle
+      })
+    },
+    // 返回事件        
+    back () {
+      wx.navigateBack({
+        delta: 1
+      })
+      this.triggerEvent('back', {
+        back: 1
+      })
+    },
+    home () {
       let pages = getCurrentPages()
       wx.navigateBack({
         delta: pages.length
       })
-    },
-    back: function () {
-      wx.navigateBack({
-        delta: 1
-      })
+      this.triggerEvent('home', {
+        home:'非必须，可自定义'
+      });
     }
   }
 })

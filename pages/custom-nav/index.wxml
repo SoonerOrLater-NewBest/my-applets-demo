@@ -1,1 +1,2 @@
-<navigationBar text="自定义导航" back="{{true}}" home="true"></navigationBar>
+<navigationBar title-text="自定义导航栏" back-icon="/images/back.png" home-icon="/images/home.png" background="#f2f2f2" bind:back="back" title-img="/images/home.png" bind:home="home"></navigationBar>
+<view class='body'></view>

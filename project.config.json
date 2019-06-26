@@ -37,13 +37,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "111",
-					"pathName": "pages/logs/logs",
-					"query": ""
+					"id": 0,
+					"name": "聊天demo",
+					"pathName": "pages/chat/index",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": -1,

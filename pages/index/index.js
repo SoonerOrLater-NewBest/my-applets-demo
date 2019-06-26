@@ -83,6 +83,11 @@ Page({
   onUnload() {
     console.log('page---onUnload');
   },
+  jump(){
+    wx.navigateTo({
+      url: '/pages/custom-nav/index',
+    })
+  },
   onShareAppMessage(res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮

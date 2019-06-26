@@ -2,10 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/custom-nav/index"
+    "pages/custom-nav/index",
+    "pages/chat/index"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小程序解决方案",
     "navigationBarTextStyle": "black"

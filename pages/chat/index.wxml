@@ -1,0 +1,192 @@
+<!-- 可拖动按钮 -->
+<movable-area class='call-area' wx:if="{{isForm}}">
+  <movable-view class='call' x="{{x}}" y="{{y}}" direction="all">
+    <view bindtap='goCenter'>个人中心</view>
+  </movable-view>
+</movable-area>
+<!-- 正在录音效果 -->
+<view class='voice-enter-note' wx:if="{{voice_icon_click}}">
+  <view class='icon-maikefeng iconfont audio-iconfont' wx:if="{{!cancleRecording}}">
+  </view>
+  <view class='icon-fanhui iconfont audio-iconfont' style='text-align:center;' wx:if="{{cancleRecording}}"></view>
+
+  <view class='prompt {{cancleRecording?"active":""}}'>{{cancleRecording?"松开手指, 取消发送":"手指上滑, 取消发送"}}</view>
+</view>
+<!-- 消息体 -->
+<view class="message-board-container" id='container'>
+  <scroll-view scroll-y scroll-into-view="{{targetId}}" bindscrolltoupper='uper' class="message-list" bindtap="hideMediaArea" scroll-with-animation='true' style='{{status==2?"height:80%;":""}}'>
+
+    <!-- 历史消息 -->
+    <view wx:for="{{historyMessages}}" id="msg-h{{index}}" class="historyMessage-item {{item.reply_ident == reply_ident ?  'master-msg':'guest-msg'}}" wx:key="{{index}}">
+      <block wx:if='{{item.reply_ident!=3}}'>
+        <image class="avatar" src="{{item.reply_ident == reply_ident ? avatarUrl:toavatar}}"></image>
+        <view class="msg-item-pop" wx:if="{{item.reply_type == 'text'||item.reply_type == 'audio'||item.reply_type == 'card'}}"></view>
+        <view class="{{item.reply_type == 'image' ? 'history-msg-img':'message-content'}}">
+          <view wx:if="{{item.reply_type == 'text'}}" class="content">{{item.reply_con}}</view>
+          <view wx:if="{{item.reply_type == 'audio'}}" style='min-width:160rpx;' class='content {{item.reply_ident == reply_ident ? "self-audio":""}}' data-src="{{item.reply_con}}" bindtap='my_audio_click'>
+            <view class='iconfont {{item.reply_ident == reply_ident ? "icon-31shengbo-copy":"icon-31shengbo"}}'></view>
+          </view>
+          <view wx:if="{{item.reply_type == 'image'}}" class='messages-img'>
+            <image src="{{item.reply_con}}" mode='widthFix' bindtap='previewImg' data-images-src='{{item.reply_con}}' data-current-src='{{item.reply_con}}'>
+            </image>
+          </view>
+          <view wx:if="{{item.reply_type == 'card'}}" class="content card-msg" bindtap='cardAction' data-url="{{item.reply_con.url}}">
+            <image src='{{item.reply_con.icon}}'></image>
+            <view>
+              <view class='title'>{{item.reply_con.title}}</view>
+              <view class='desc text2'>{{item.reply_con.desc}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:if='{{item.reply_ident==3}}'>
+        <view class="system">{{item.reply_con}}</view>
+      </block>
+
+    </view>
+
+    <!-- 新消息 -->
+    <view wx:for="{{newMessages}}" id="msg{{index}}" class="message-wrap" wx:key="{{index}}">
+      <!-- <block wx:if='{{item.type=="text"'> -->
+      <view class="historyMessage-item {{item.self === 0 ? 'guest-msg' : 'master-msg'}}">
+        <image class="avatar" src="{{item.avatar}}"></image>
+        <view class="msg-item-pop" wx:if="{{item.type == 'text'||item.type == 'audio'||item.type == 'card'}}"></view>
+        <view class="{{item.type == 'image' ? 'new-msg-img' : 'message-content'}}" style="background-color: {{item.type == 'image' || item.self === 0 ? 'transparent' : '#A0E75A'}};">
+          <view wx:if="{{item.type == 'text'}}" class="content">{{item.content}}</view>
+          <view wx:if="{{item.type == 'audio'}}" style='min-width:160rpx;' class='content {{item.self === 0 ? "":"self-audio"}}' data-src="{{item.content}}" bindtap='my_audio_click'>
+            <view class='iconfont {{item.self === 0 ? "icon-31shengbo":"icon-31shengbo-copy"}}'></view>
+          </view>
+          <view wx:if="{{item.type == 'image'}}" class='messages-img' wx:for="{{item.content}}" wx:for-item="m" wx:key="{{index}}">
+            <image src="{{m}}" mode='widthFix' bindtap='previewImg' data-images-src='{{item.content}}' data-current-src='{{m}}'>
+            </image>
+          </view>
+          <view wx:if="{{item.type == 'card'}}" class="content card-msg" bindtap='cardAction' data-url="{{item.content.url}}">
+            <image src='{{item.content.icon}}'></image>
+            <view>
+              <view class='title'>{{item.content.title}}</view>
+              <view class='desc text2'>{{item.content.desc}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- </block> -->
+
+      <!-- <block wx:if='{{item.type=="audio"}}'>
+        <view class="system">{{item.content}}</view>
+      </block> -->
+
+    </view>
+
+    <block wx:if='{{status==2&&reply_ident==2}}'>
+      <view class='appraisal' bindtap='goAssess'>
+        <form-view />
+        <view class='status'>{{comment.length==0?'暂未评价':'已评价'}}</view>
+        <view class='goeva'>{{comment.length==0?'点此前去评价':'点此查看评论'}}
+          <text class='icon icon--arrow-right arrow'></text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <block wx:if='{{pay_status==1&&status==0||status==1}}'>
+    <form class='msg-form' bindsubmit='sendMessage' report-submit>
+      <view class="message-input" style="bottom:{{inputBarBottom+isIpx}}rpx">
+        <view wx:if="{{!isAudio}}" bindtap='textToAudio' class="audio-label iconfont icon-yuyin"></view>
+        <view wx:else bindtap='textToAudio' class="audio-label iconfont icon-jianpan"></view>
+        <input wx:if="{{!isAudio}}" focus='{{focus}}' class='textarea' confirm-hold='{{true}}' bindconfirm='sendMessage' confirm-type='send' name="textarea" fixed="{{true}}" cursor-spacing='24' bindblur="stopInput" bindinput='inputHandler' maxlength='500' type='text'
+          placeholder="请输入病情描述" value="{{inputValue}}"></input>
+        <view wx:else class='textarea audio-text {{voice_icon_click?"audioing":""}}' bindtouchstart='voice_ing_start' bindtouchend='voice_ing_end' bindtouchmove='moveToCancle'>{{voice_icon_click?'松开 发送':'按住 说话'}}</view>
+        <!-- <textarea class='textarea' name="textarea" fixed="{{true}}" cursor-spacing='24' bindblur="stopInput" bindinput='inputHandler' maxlength='500' auto-height="{{true}}" placeholder="请输入咨询内容" value="{{inputValue}}" /> -->
+        <!-- <button class='send-btn' wx:if="{{!needMoreMedia}}" type="primary" form-type='submit'>发送</button> -->
+        <!-- <view wx:if="{{needMoreMedia}}" bindtap='showMoreMedia' class="addMore icon icon-icon_roundadd"></view> -->
+        <!-- <view bindtap='goCenter' class="addMore icon icon-icon-default-headerl"></view> -->
+        <view bindtap='showMoreMedia' class="addMore icon icon-icon_roundadd"></view>
+      </view>
+    </form>
+    <form wx:if="{{showMediaArea}}" report-submit bindsubmit='getFormId'>
+      <view class='hidden-form' style="bottom:{{isIpx}}rpx;height:{{action_height}}rpx">
+        <button form-type='submit' class="hidden-btn" bindtap='chooseImage'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/chat_img.png'></image>
+            图片
+          </view>
+        </button>
+        <button form-type='submit' class="hidden-btn" bindtap='stopChat' wx:if='{{reply_ident==2}}'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/chat_end.png'></image>
+            结束咨询
+          </view>
+        </button>
+        <button form-type='submit' class="hidden-btn" bindtap='getRespond' wx:if='{{reply_ident==2}}'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/getRespond.png'></image>
+            催回复
+          </view>
+        </button>
+        <button form-type='submit' class="hidden-btn" bindtap='mbCall' wx:if='{{reply_ident==2}}'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/mbcall.png'></image>
+            打电话
+          </view>
+        </button>
+        <button form-type='submit' class="hidden-btn" bindtap='getCard' wx:if='{{reply_ident==2}}' data-type='medication_reg'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/kaiyao.png'></image>
+            申请开药
+          </view>
+        </button>
+         <button form-type='submit' class="hidden-btn" bindtap='getReport' wx:if='{{reply_ident==2}}' data-type='explain_report'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/report.png'></image>
+            报告解读
+          </view>
+        </button>
+         <button form-type='submit' class="hidden-btn" bindtap='goVideo' wx:if='{{baseInfo.type==2}}'>
+          <form-view />
+          <view class='image-btn'>
+            <image src='/ws_medical_new/image/spw.png'></image>
+            进入候诊室
+          </view>
+        </button>
+      </view>
+    </form>
+  </block>
+
+
+  <block wx:if='{{status==2}}'>
+    <view class='endStatus' style="bottom:{{isIpx}}rpx" wx:if='{{reply_ident==2}}'>
+      <view>
+        <view style='color:#333;font-weight:bold;font-size:30rpx;'>咨询已结束</view>
+        <view style='color:#bbb;font-size:24rpx;'>请为医生打个分或继续咨询（需付费）</view>
+      </view>
+      <view class='end-btn-wrap'>
+        <view class='end-btn' bindtap='goAssess'>
+          <form-view /> {{comment.length==0?'评价本次服务':'查看本次评价'}}
+        </view>
+        <view class='end-btn again' bindtap='again'>
+          <form-view /> 继续咨询
+        </view>
+      </view>
+    </view>
+    <view class='endStatus' style="bottom:{{isIpx}}rpx" wx:if='{{reply_ident==1}}'>
+      <view>
+        <view style='color:#333;font-weight:bold;font-size:30rpx;'>咨询已结束</view>
+        <view style='color:#bbb;font-size:24rpx;'>请为患者撰写咨询总结或开具处方</view>
+      </view>
+      <view class='end-btn-wrap'>
+        <view class='end-btn' bindtap='goAdvisory'>
+          <form-view /> {{'咨询总结'}}
+        </view>
+        <view class='end-btn again' bindtap='prescribe'>
+          <form-view /> 开具处方
+        </view>
+      </view>
+    </view>
+
+  </block>
+</view>

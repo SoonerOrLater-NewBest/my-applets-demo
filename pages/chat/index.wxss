@@ -1,0 +1,533 @@
+/* @import "../../index.wxss";
+@import "../../font.wxss"; */
+
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+}
+
+view {
+  display: block;
+}
+
+.message-board-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.message-list {
+  z-index: 0;
+  height: 90%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.guest-msg {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.master-msg {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.historyMessage-item {
+  min-height: 80rpx;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+}
+
+.guest-msg .avatar {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 14rpx;
+  border: 1rpx solid #fff;
+}
+
+.guest-msg .message-content {
+  max-width: 80%;
+  min-height: 80rpx;
+  font-size: 30rpx;
+  color: #333;
+  margin-left: -10rpx;
+  line-height: 42rpx;
+  position: relative;
+  background-color: #fff;
+  border: 0.5rpx solid #eee;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.guest-msg .history-msg-img {
+  width: 80%;
+  max-width: 85%;
+  min-height: 50rpx;
+  float: left;
+  font-size: 28rpx;
+  color: #333;
+  padding-left: 10rpx;
+  line-height: 42rpx;
+  position: relative;
+  border-radius: 10rpx;
+}
+
+.master-msg .history-msg-img {
+  float: right;
+  width: 80%;
+  max-width: 80%;
+  min-height: 50rpx;
+  font-size: 28rpx;
+  color: #333;
+  padding-left: 10rpx;
+  line-height: 42rpx;
+  position: relative;
+  border-radius: 10rpx;
+}
+
+.new-msg-img {
+  width: 80%;
+  max-width: 85%;
+  min-height: 50rpx;
+  float: left;
+  font-size: 28rpx;
+  color: #333;
+  padding-left: 10rpx;
+  margin-left: 30rpx;
+  line-height: 42rpx;
+  position: relative;
+  border-radius: 10rpx;
+}
+
+.guest-msg .triangle {
+  width: 20rpx;
+  height: 32rpx;
+  position: absolute;
+  left: -17rpx;
+  top: 22rpx;
+}
+
+.master-msg .avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border: 1rpx solid #fff;
+  margin-left: 14rpx;
+}
+
+.master-msg .message-content {
+  max-width: 80%;
+  min-height: 80rpx;
+  margin-right: -10rpx;
+  text-align: left;
+  position: relative;
+  border-radius: 8rpx;
+  background-color: #a0e75a;
+  display: flex;
+  align-items: center;
+}
+
+.master-msg .content {
+  height: 100%;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  padding: 16rpx;
+  word-break: break-all;
+  white-space: pre-line;
+  letter-spacing: 3rpx;
+  display: flex;
+}
+
+.guest-msg .content {
+  height: 100%;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  padding: 16rpx;
+  word-break: break-all;
+  white-space: pre-line;
+  /* margin-left: -8rpx; */
+  letter-spacing: 3rpx;
+  display: flex;
+  background: #fff;
+}
+
+.master-msg .triangle {
+  width: 20rpx;
+  height: 35rpx;
+  position: absolute;
+  right: -17rpx;
+  top: 22rpx;
+}
+
+.master-msg .messages-img {
+  width: 100%;
+  margin-right: -20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  background-color: transparent;
+}
+
+.guest-msg .messages-img {
+  width: 100%;
+  margin-left: -20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: transparent;
+}
+
+.messages-img image {
+  width: 60%;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+}
+
+.msg-item-pop {
+  height: 20rpx;
+  width: 20rpx;
+  margin-top: 30rpx;
+  border-top: 1rpx solid #ececec;
+  border-right: 1rpx solid #ececec;
+}
+
+.master-msg .msg-item-pop {
+  transform: rotate(45deg);
+  background: #a0e75a;
+}
+
+.guest-msg .msg-item-pop {
+  transform: rotate(-135deg);
+  background: #fff;
+}
+
+.msg-form {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-top: 20rpx;
+  z-index: 999;
+}
+
+.message-input {
+  min-height: 100rpx;
+  background-color: #f9f9f9;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1rpx solid #eee;
+  padding: 15rpx 20rpx;
+  box-shadow: 0 -5rpx 20rpx #eee;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.textarea {
+  width: 74%;
+  max-height: 240rpx;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  overflow: visible;
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 10rpx 20rpx;
+  height: 50rpx;
+  min-height: 50rpx;
+}
+
+.send-btn {
+  width: 16%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  padding: 0;
+  margin: 0;
+}
+
+.inputting {
+  margin-bottom: 0rpx;
+}
+
+.addMore {
+  font-size: 50rpx;
+  color: #52c41a;
+  border-radius: 50%;
+}
+
+.moreMediaArea {
+  width: 100%;
+  height: 150rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 30rpx;
+  border-top: 1rpx solid #999;
+  background-color: #fff;
+}
+
+.image-btn {
+  line-height: 2;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.image-btn image {
+  margin: auto;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 15rpx;
+  display: block;
+}
+
+.tools {
+  width: 100%;
+  height: 60rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: -50rpx;
+}
+
+.tools view {
+  width: 120rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  color: #666;
+  background: linear-gradient(to bottom right, #cdfed1, #34fe42);
+  border: 1rpx solid #666;
+  border-radius: 10rpx;
+  margin: 0 10rpx;
+  text-align: center;
+}
+
+.hidden-btn {
+  position: relative;
+  width: 25%;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 0;
+  margin: 10rpx 0 0;
+}
+
+.hidden-btn::after {
+  border: 0;
+}
+
+.hidden-form {
+  width: 100%;
+  height: 360rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  background: #f9f9f9;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx;
+  display: flex;
+  border-top: 1rpx solid #eee;
+  flex-wrap: wrap;
+}
+
+.system {
+  background-color: #dadada;
+  font-size: 24rpx;
+  border-radius: 12rpx;
+  padding: 10rpx 20rpx;
+  text-align: center;
+  box-sizing: border-box;
+  width: 92vw;
+  color: #333;
+  line-height: 30rpx;
+  word-break: break-all;
+  white-space: pre-line;
+  letter-spacing: 3rpx;
+}
+
+/* 悬浮按钮 */
+
+.call-area {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 90vh;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.call {
+  position: absolute;
+  width: 100rpx;
+  height: 100rpx;
+  left: auto;
+  top: auto;
+  right: 20rpx;
+  bottom: 200rpx;
+  pointer-events: auto;
+}
+
+.call view {
+  text-align: center;
+  font-size: 24rpx;
+  width: 50rpx;
+  padding: 15rpx 25rpx;
+  line-height: 34rpx;
+  border-radius: 50%;
+  background: var(--color-theme);
+  color: #fff;
+}
+
+/* 评价 */
+
+.appraisal {
+  position: relative;
+  margin: 50rpx 60rpx 0;
+  padding: 0 20rpx;
+  background: #fff;
+  border-radius: 10rpx;
+}
+
+.status {
+  height: 70rpx;
+  line-height: 70rpx;
+  border-bottom: 1px solid #eee;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.goeva {
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.arrow {
+  float: right;
+}
+
+/* 结束状态按钮 */
+
+.endStatus {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  z-index: 999;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx;
+  background: #fff;
+}
+
+.end-btn-wrap {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20rpx;
+  padding-top: 26rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.end-btn {
+  position: relative;
+  width: 40%;
+  flex: 1;
+  text-align: center;
+  line-height: 76rpx;
+  background: #73cc3e;
+  color: #fff;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+}
+
+.again {
+  background: #ec3d3dde;
+  margin-left: 30rpx;
+}
+
+/* 语音功能 */
+
+.audio-label {
+  font-size: 50rpx;
+  color: #212121;
+  border-radius: 50%;
+}
+
+.audio-text {
+  color: #666;
+  text-align: center;
+  font-weight: bold;
+}
+
+.audioing {
+  background: #eee;
+  color: #212121;
+}
+
+.voice-enter-note {
+  position: fixed;
+  width: 320rpx;
+  height: 320rpx;
+  left: 215rpx;
+  top: 380rpx;
+  z-index: 30;
+  background-color: #333;
+  border-radius: 15rpx;
+}
+
+.audio-iconfont {
+  font-size: 140rpx;
+  color: #fff;
+  margin: 20rpx 50rpx 0;
+}
+
+.prompt {
+  color: #ccc;
+  text-align: center;
+  margin: 0 28rpx;
+  padding: 10rpx 16rpx;
+  border-radius: 6rpx;
+}
+
+.prompt.active {
+  background: #800;
+  color: #fff;
+}
+
+.self-audio{
+  flex-direction: row-reverse;
+}
+
+/* 卡片消息 */
+
+.card-msg image {
+  width: 110rpx;
+  height: 110rpx;
+  margin:6rpx 20rpx 6rpx 10rpx;
+  border-radius: 8rpx;
+  flex: none;
+}
+
+.card-msg .title {
+  color: #333;
+}
+
+.card-msg .desc {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.42;
+}
